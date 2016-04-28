@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -my \
   php5-memcached \
   php5-mysql \
   php5-mcrypt \
-  php5-sqlite \
   php5-xdebug \
   php5-redis \
   php-apc
