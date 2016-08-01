@@ -17,15 +17,16 @@ RUN apt-get update && apt-get install -my \
   supervisor \
   curl \
   wget \
+  php5-cli \
   php5-curl \
+  php5-common \
   php5-fpm \
   php5-gd \
   php5-memcached \
   php5-mysql \
   php5-mcrypt \
   php5-xdebug \
-  php5-redis \
-  php-apc
+  php5-redis
 
 # Ensure that PHP5 FPM is run as root.
 RUN sed -i "s/user = www-data/user = root/" /etc/php5/fpm/pool.d/www.conf
