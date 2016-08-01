@@ -1,12 +1,5 @@
-################################################################################
-# Base image
-################################################################################
-
 FROM nginx
-
-################################################################################
-# Build instructions
-################################################################################
+MAINTAINER Xun Zhou <segentor@gmail.com>
 
 # Remove default nginx configs.
 RUN rm -f /etc/nginx/conf.d/*
@@ -58,6 +51,10 @@ RUN sed -i '/^;pm\.status_path/s/^;//' /etc/php5/fpm/pool.d/www.conf
 # Prevent PHP Warning: 'xdebug' already loaded.
 # XDebug loaded with the core
 RUN sed -i '/.*xdebug.so$/s/^/;/' /etc/php5/mods-available/xdebug.ini
+
+# clean up APT
+RUN apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Add configuration files
 COPY conf/nginx.conf /etc/nginx/
