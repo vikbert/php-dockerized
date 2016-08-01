@@ -16,17 +16,32 @@ RUN apt-get update && apt-get install -my \
   vim \
   supervisor \
   curl \
+  git \
   wget \
   php5-cli \
   php5-curl \
   php5-common \
   php5-fpm \
   php5-gd \
+  php5-imagick \
+  php5-intl \
   php5-memcached \
   php5-mysql \
   php5-mcrypt \
   php5-xdebug \
   php5-redis
+
+# composer
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/bin/composer
+
+# nodejs & npm
+RUN rm /bin/sh \
+	&& ln -s /bin/bash /bin/sh \
+	&& curl -sL https://deb.nodesource.com/setup_5.x | bash -
+
+RUN apt-get install -y nodejs \
+	&& npm install -g gulp
 
 # Ensure that PHP5 FPM is run as root.
 RUN sed -i "s/user = www-data/user = root/" /etc/php5/fpm/pool.d/www.conf
@@ -48,6 +63,7 @@ RUN sed -i '/.*xdebug.so$/s/^/;/' /etc/php5/mods-available/xdebug.ini
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/supervisord.conf /etc/supervisor/conf.d/
 COPY conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
+COPY Application /var/www
 
 ################################################################################
 # Volumes
