@@ -1,4 +1,4 @@
-front:
+appserver:
   build: .
   ports:
     - "80:80"

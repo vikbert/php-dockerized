@@ -31,7 +31,7 @@ RUN mv composer.phar /usr/bin/composer
 # nodejs & npm
 RUN rm /bin/sh \
 	&& ln -s /bin/bash /bin/sh \
-	&& curl -sL https://deb.nodesource.com/setup_5.x | bash -
+	&& curl -sL https://deb.nodesource.com/setup_4.x | bash -
 
 RUN apt-get install -y nodejs \
 	&& npm install -g gulp
@@ -60,7 +60,6 @@ RUN apt-get clean \
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/supervisord.conf /etc/supervisor/conf.d/
 COPY conf/php.ini /etc/php5/fpm/conf.d/40-custom.ini
-COPY Application /var/www
 
 ################################################################################
 # Volumes
